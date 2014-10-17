@@ -1,4 +1,4 @@
-nativex-dse Cookbook
+dse-nativex Cookbook
 ====================
 # Datastax Enterprise Chef Cookbook (Apache Cassandra)
 This cookbook installs and configures Datastax Enterprise. More info is here ([DataStax Enterprise](http://www.datastax.com/products/)).
@@ -7,7 +7,7 @@ It uses officially released Datastax packages. It can tweak the Cassandra config
 
 ## Usage
 
-Override the attributes you wish to change and use the nativex-dse:cassandra recipe to install Apache Cassandra.
+Override the attributes you wish to change and use the dse-nativex:cassandra recipe to install Apache Cassandra.
 
 ##Scope
 
@@ -30,14 +30,14 @@ Tested on:
 
 ## Recipes
 
-The provided recipes are `nativex-dse::cassandra`.
-* `nativex-dse::cassandra` will provision DSE as a cassandra node.
+The provided recipes are `dse-nativex::cassandra`.
+* `dse-nativex::cassandra` will provision DSE as a cassandra node.
 
 
 There are also recipes that should not be called directly that are used for configuration.
-* `nativex-dse::default` sets up the templates
-* `nativex-dse::datastax` sets up the datastax repos
-* `nativex-dse::datstax-agent` configures the datastax-agent if needed
+* `dse-nativex::default` sets up the templates
+* `dse-nativex::datastax` sets up the datastax repos
+* `dse-nativex::datstax-agent` configures the datastax-agent if needed
 
 ## Attributes
 This cookbook will install DSE Cassandra by default. Other attributes you can set are:

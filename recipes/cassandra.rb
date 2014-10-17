@@ -1,5 +1,5 @@
 #Include the setup recipe for DataStax
-include_recipe "nativex-dse::datastax"
+include_recipe "dse-nativex::datastax"
 
 #set up the dse default file. This sets up hadoop, etc
 template "/etc/default/dse" do

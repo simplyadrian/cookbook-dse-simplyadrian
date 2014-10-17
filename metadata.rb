@@ -1,4 +1,4 @@
-name             'nativex-dse'
+name             'dse-nativex'
 maintainer       'NativeX'
 maintainer_email 'derek.bromenshenkel@nativex.com'
 license          'All rights reserved'
@@ -8,4 +8,4 @@ version          '0.1.0'
 
 depends "java", "~> 1.14"
 depends "yum", "~> 3.0"
-depends "nativex-ohai"
+depends "ohai-nativex"

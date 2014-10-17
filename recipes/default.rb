@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: nativex-dse
+# Cookbook Name:: dse-nativex
 # Recipe:: default
 #
 # Copyright 2014, NativeX
@@ -8,5 +8,5 @@
 #
 # Default behavior is to install Apache Cassandra DSE component only, alongside an OpsCenter agent.
 
-include_recipe "nativex-dse::cassandra"
-include_recipe "nativex-dse::opscenter-agent" if node['opscenter-agent']['enabled']
+include_recipe "dse-nativex::cassandra"
+include_recipe "dse-nativex::opscenter-agent" if node['opscenter-agent']['enabled']

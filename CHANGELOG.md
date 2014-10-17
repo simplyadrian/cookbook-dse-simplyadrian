@@ -1,11 +1,11 @@
-nativex-dse CHANGELOG
+dse-nativex CHANGELOG
 =====================
 
-This file is used to list changes made in each version of the nativex-dse cookbook.
+This file is used to list changes made in each version of the dse-nativex cookbook.
 
 0.1.0
 -----
-- Derek Bromenshenkel - Initial release of nativex-dse (Supports DSE 4.5.2)
+- Derek Bromenshenkel - Initial release of dse-nativex (Supports DSE 4.5.2)
 
 - - -
 Check the [Markdown Syntax Guide](http://daringfireball.net/projects/markdown/syntax) for help with Markdown.

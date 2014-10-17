@@ -1,5 +1,5 @@
 #
-## Cookbook Name:: nativex-dse
+## Cookbook Name:: dse-nativex
 ## Recipe:: determine_seeds.rb
 ##
 ## Copyright 2014, NativeX
