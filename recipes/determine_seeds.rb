@@ -59,10 +59,8 @@ ruby_block "determine_seeds" do
       known_seeds_my_dc << node['ipaddress']
       all_known_seeds << node['ipaddress']
     end
-    # Derek - TODO, figure out how to only update single DC inside the info Hash
-    #cluster_info_hash[datacenter_name]['seeds'] = known_seeds_my_dc.to_a # update the reference to the global hash; only update this DC's seeds
-    #node.set['cassandra']['cluster_dc_info']= cluster_info_hash
-    node.set['cassandra']['cluster_dc_info'][datacenter_name]['seeds'] = known_seeds_my_dc.to_a
+
+    node.set['cassandra']['cluster_dc_info'][datacenter_name]['seeds'] = known_seeds_my_dc.to_a # update the reference to the global hash; only update this DC's seeds
     node.set['cassandra']['seeds'] = all_known_seeds.to_a.join(",") # seeds in the yaml file is comma separated list
   end
   action :run
