@@ -10,6 +10,7 @@ default['cassandra']['vnodes']                                      = true
 default['cassandra']['datacenter']                                  = "DC1"
 default['cassandra']['rack']                                        = "RAC1"
 default['cassandra']['num_seeds_per_dc']                            = 3
+default['cassandra']['cluster_dc_info']                             = {}
 # cassandra.yaml settings (Defaults according to Apache release: https://github.com/apache/cassandra/blob/cassandra-2.0.10/conf/cassandra.yaml)
 default['cassandra']['cluster_name']                                = "Test Cluster"
 default['cassandra']['auto_bootstrap']                              = true
@@ -114,6 +115,3 @@ default['cassandra']['log_level']				                    = "INFO"
 default['cassandra']['audit_logging']                               = false
 default['cassandra']['audit_dir']                                   = "/etc/dse/cassandra"
 default['cassandra']['active_categories']                           = "ADMIN,AUTH,DDL,DCL"
-
-# Attributes dependent on some above.
-default['cassandra']['cluster_dc_info']                           = { node['cassandra']['datacenter'] => { 'seeds' => node['cassandra']['seeds'].split(',') } } 
