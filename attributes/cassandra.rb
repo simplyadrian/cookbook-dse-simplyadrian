@@ -112,6 +112,11 @@ default['cassandra']['gc_log_GCLogFileSize']                        = nil
 
 # Log4J Settings
 default['cassandra']['log_level']				                    = "INFO"
+default['cassandra']['log_file_size_mb']				            = "20"
+default['cassandra']['log_file_roll_count']				            = 10
+default['cassandra']['log_syslog_enabled']                          = false
+default['cassandra']['log_syslog_host']                             = ""
+default['cassandra']['log_syslog_threshold']                        = "WARN"
 default['cassandra']['audit_logging']                               = false
 default['cassandra']['audit_dir']                                   = "/etc/dse/cassandra"
 default['cassandra']['active_categories']                           = "ADMIN,AUTH,DDL,DCL"

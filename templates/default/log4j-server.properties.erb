@@ -18,7 +18,11 @@
 # (%l is slower.)
 
 # output messages into a rolling log file as well as stdout
+<% if node['cassandra']['log_syslog_enabled'] %>
 log4j.rootLogger=<%= node['cassandra']['log_level'] %>,stdout,R,SYSLOG
+<% else %>
+log4j.rootLogger=<%= node['cassandra']['log_level'] %>,stdout,R
+<% end %>
 
 # stdout
 log4j.appender.stdout=org.apache.log4j.ConsoleAppender
@@ -27,12 +31,12 @@ log4j.appender.stdout.layout.ConversionPattern=%5p %d{HH:mm:ss,SSS} %m%n
 
 # rolling log file
 log4j.appender.R=org.apache.log4j.RollingFileAppender
-log4j.appender.R.maxFileSize=20MB
-log4j.appender.R.maxBackupIndex=10
+log4j.appender.R.maxFileSize=<%= node['cassandra']['log_file_size_mb'] %>MB
+log4j.appender.R.maxBackupIndex=<%= node['cassandra']['log_file_roll_count'] %>
 log4j.appender.R.layout=org.apache.log4j.PatternLayout
 log4j.appender.R.layout.ConversionPattern=%5p [%t] %d{ISO8601} %F (line %L) %m%n
 # Edit the next line to point to your logs directory
-log4j.appender.R.File=/var/log/cassandra/system.log
+log4j.appender.R.File=<%= node['cassandra']['log_directory'] %>system.log
 
 log4j.logger.SolrValidationLog=INFO,V
 log4j.additivity.SolrValidationLog=false
@@ -44,7 +48,7 @@ log4j.appender.V.maxBackupIndex=10
 log4j.appender.V.layout=org.apache.log4j.PatternLayout
 log4j.appender.V.layout.ConversionPattern=%d{ISO8601} %m%n
 # Edit the next line to point to your logs directory
-log4j.appender.V.File=/var/log/cassandra/solrvalidation.log
+log4j.appender.V.File=<%= node['cassandra']['log_directory'] %>solrvalidation.log
 
 # Application logging options
 #log4j.logger.org.apache.cassandra=DEBUG
@@ -119,8 +123,8 @@ log4j.logger.org.apache.solr.util.plugin.AbstractPluginLoader=WARN
 
 # SYSLOG
 log4j.appender.SYSLOG = org.apache.log4j.net.SyslogAppender
-log4j.appender.SYSLOG.syslogHost = 10.15.0.249
-log4j.appender.SYSLOG.threshold = WARN
+log4j.appender.SYSLOG.syslogHost = <%= node['cassandra']['log_syslog_host'] %>
+log4j.appender.SYSLOG.threshold = <%= node['cassandra']['log_syslog_threshold'] %>
 log4j.appender.SYSLOG.layout = org.apache.log4j.PatternLayout
 log4j.appender.SYSLOG.layout.ConversionPattern = %d [%t] %-5p %c- %m%n
 log4j.appender.SYSLOG.Facility = LOCAL0
