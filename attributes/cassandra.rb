@@ -6,6 +6,7 @@ default['cassandra']['user']                                        = "cassandra
 default['cassandra']['group']                                       = "cassandra"
 default['cassandra']['root_dir']                                    = "/var/lib/cassandra/"
 default['cassandra']['log_directory']                               = "/var/log/cassandra/"
+default['cassandra']['jar_lib_dir']                                 = "/usr/share/dse/cassandra/lib"
 default['cassandra']['vnodes']                                      = true
 default['cassandra']['datacenter']                                  = "DC1"
 default['cassandra']['rack']                                        = "RAC1"
@@ -120,3 +121,8 @@ default['cassandra']['log_syslog_threshold']                        = "WARN"
 default['cassandra']['audit_logging']                               = false
 default['cassandra']['audit_dir']                                   = "/etc/dse/cassandra"
 default['cassandra']['active_categories']                           = "ADMIN,AUTH,DDL,DCL"
+
+# JNA (3.2.7 or higher required for C* 2.0 and 2.1)
+default['cassandra']['jna_version']                                 = "3.5.2"
+default['cassandra']['jna_install_dir']                             = node['cassandra']['jar_lib_dir']
+default['cassandra']['jna_jar_source_base_uri']                     = "https://maven.java.net/content/repositories/releases/net/java/dev/jna/jna/"

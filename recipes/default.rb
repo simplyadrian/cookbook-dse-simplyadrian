@@ -8,5 +8,6 @@
 #
 # Default behavior is to install Apache Cassandra DSE component only, alongside an OpsCenter agent.
 
+include_recipe "dse-nativex::jna"
 include_recipe "dse-nativex::cassandra"
 include_recipe "dse-nativex::opscenter-agent" if node['opscenter-agent']['enabled']
