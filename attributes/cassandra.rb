@@ -126,3 +126,6 @@ default['cassandra']['active_categories']                           = "ADMIN,AUT
 default['cassandra']['jna_version']                                 = "3.5.2"
 default['cassandra']['jna_install_dir']                             = node['cassandra']['jar_lib_dir']
 default['cassandra']['jna_jar_source_base_uri']                     = "https://maven.java.net/content/repositories/releases/net/java/dev/jna/jna/"
+
+# JEMalloc
+default['cassandra']['jemalloc_location']                           = "/usr/lib64/"
