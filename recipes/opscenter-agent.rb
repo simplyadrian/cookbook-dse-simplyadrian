@@ -16,11 +16,14 @@ ruby_block "opscenter-cluster-existence" do
     require 'net/http'
     require 'openssl'
     require 'json'
+    
+    ops_creds = Chef::EncryptedDataBagItem.load("credentials", "#{node['opscenter-agent']['opscenter_credentials_bag_item']}")
+    
     uri = URI("#{node['opscenter-agent']['opscenter_api_uri']}cluster-configs")
     Chef::Log.debug("OpsCenter API URL: #{uri}.")
   
     req = Net::HTTP::Get.new(uri.path)
-    req.basic_auth 'user', 'user'
+    req.basic_auth "#{ops_creds['opsc_username']}", "#{ops_creds['opsc_password']}"
   
     res = Net::HTTP.start(uri.hostname, uri.port, {use_ssl: uri.scheme == 'https', verify_mode: OpenSSL::SSL::VERIFY_NONE}) {|http|
       http.request(req)
@@ -34,7 +37,7 @@ ruby_block "opscenter-cluster-existence" do
         @payload = { "cassandra" => { "seed_hosts" => node['cassandra']['seeds'] }, "jmx" => { "port" => "7199" } }.to_json
         put_req = Net::HTTP::Post.new(uri.path)
         put_req.body = @payload
-        put_req.basic_auth 'user', 'user'
+        put_req.basic_auth "#{ops_creds['opsc_username']}", "#{ops_creds['opsc_password']}"
         put_res = Net::HTTP.start(uri.hostname, uri.port, {use_ssl: uri.scheme == 'https', verify_mode: OpenSSL::SSL::VERIFY_NONE}) {|http|
           http.request(put_req)
         }
