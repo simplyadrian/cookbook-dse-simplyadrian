@@ -129,3 +129,15 @@ default['cassandra']['jna_jar_source_base_uri']                     = "https://m
 
 # JEMalloc
 default['cassandra']['jemalloc_location']                           = "/usr/lib64/"
+
+# OS settings for Cassandra (See: http://www.datastax.com/documentation/cassandra/2.0/cassandra/install/installRecommendSettings.html)
+default['cassandra']['os']['zone_reclaim_mode']                     = 0
+default['cassandra']['os']['limits_ary']                            = [
+                                                                       { 'domain' => 'cassandra', 'type' => '-', 'item' => 'memlock', 'value' => 'unlimited' },
+                                                                       { 'domain' => 'cassandra', 'type' => '-', 'item' => 'nofile', 'value' => '100000' },
+                                                                       { 'domain' => 'cassandra', 'type' => '-', 'item' => 'nproc', 'value' => '32768' },
+                                                                       { 'domain' => 'cassandra', 'type' => '-', 'item' => 'as', 'value' => 'unlimited' }
+                                                                      ]
+default['cassandra']['os']['90_nproc_limits_ary']                   = [
+                                                                       { 'domain' => '*', 'type' => '-', 'item' => 'nproc', 'value' => '32768' }
+                                                                      ]
