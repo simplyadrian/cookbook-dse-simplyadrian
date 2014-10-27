@@ -139,5 +139,6 @@ default['cassandra']['os']['limits_ary']                            = [
                                                                        { 'domain' => 'cassandra', 'type' => '-', 'item' => 'as', 'value' => 'unlimited' }
                                                                       ]
 default['cassandra']['os']['90_nproc_limits_ary']                   = [
+                                                                       { 'domain' => 'root', 'type' => 'soft', 'item' => 'nproc', 'value' => 'unlimited' },
                                                                        { 'domain' => '*', 'type' => '-', 'item' => 'nproc', 'value' => '32768' }
                                                                       ]
