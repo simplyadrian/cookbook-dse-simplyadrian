@@ -142,3 +142,4 @@ default['cassandra']['os']['90_nproc_limits_ary']                   = [
                                                                        { 'domain' => 'root', 'type' => 'soft', 'item' => 'nproc', 'value' => 'unlimited' },
                                                                        { 'domain' => '*', 'type' => '-', 'item' => 'nproc', 'value' => '32768' }
                                                                       ]
+default['cassandra']['os']['sysctl_vm_max_map_count']               = 131072

@@ -26,3 +26,17 @@ template "/proc/sys/vm/zone_reclaim_mode" do
   owner "root"
   group "root"
 end
+
+# Uses provider in 'line' cookbook to make sure the vm.max_map_count line exists, and is set to the proper value.
+replace_or_add "sysctl vm.max_map_count line" do
+  path "/etc/sysctl.conf"
+  pattern "^vm\.max_map_count.*"
+  line "vm.max_map_count = #{node['cassandra']['os']['sysctl_vm_max_map_count']}"
+  notifies :run, "execute[update-runtime-sysctl]", :immediately
+end
+
+# At runtime, updates the kernel parameters.  -p with no parameter says to load /etc/sysctl.conf -e to skip errors on unknown keys - there are some in the default config
+execute "update-runtime-sysctl" do
+  command "sysctl -e -p"
+  action :nothing
+end

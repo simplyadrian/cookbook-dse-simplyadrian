@@ -9,4 +9,5 @@ version          '0.1.0'
 depends "java", "~> 1.14"
 depends "yum", "~> 3.0"
 depends "limits"
+depends "line"
 depends "ohai-nativex"
