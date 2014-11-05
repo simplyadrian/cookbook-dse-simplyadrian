@@ -43,4 +43,7 @@ execute "turn off swap" do
 end
 
 # At runtime, updates the kernel parameters.  -p with no parameter says to load /etc/sysctl.conf -e to skip errors on unknown keys - there are some in the default config
-execute "update-runtime-sysc
+execute "update-runtime-sysctl" do
+  command "sysctl -e -p"
+  action :nothing
+end
