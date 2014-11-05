@@ -54,11 +54,3 @@ case node['dse']['delegated_snitch']
   else
     Chef::Log.warn("Unsupported Snitch!!")
   end
-
-#start DSE
-service node['dse']['service_name'] do
-  supports :restart => true, :status => true
-  action [:enable, :start]
-  #if java changes, restart dse
-  #subscribes :restart, "java_ark[jdk]"
-end
