@@ -28,3 +28,10 @@ rack=<%= node['cassandra']['rack'] %>
 # Add a suffix to a datacenter name. Used by the Ec2Snitch and Ec2MultiRegionSnitch
 # to append a string to the EC2 region name.
 #dc_suffix=
+
+# Uncomment the following line to make this snitch prefer the internal ip when possible, as the Ec2MultiRegionSnitch does.
+<% if node['cassandra']['snitch_prefer_local_ip'] %>
+prefer_local=true
+<% else %>
+# prefer_local=true
+<% end %>

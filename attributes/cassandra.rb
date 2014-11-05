@@ -10,6 +10,7 @@ default['cassandra']['jar_lib_dir']                                 = "/usr/shar
 default['cassandra']['vnodes']                                      = true
 default['cassandra']['datacenter']                                  = "DC1"
 default['cassandra']['rack']                                        = "RAC1"
+default['cassandra']['snitch_prefer_local_ip']                      = false
 default['cassandra']['num_seeds_per_dc']                            = 3
 default['cassandra']['cluster_dc_info']                             = {}
 # cassandra.yaml settings (Defaults according to Apache release: https://github.com/apache/cassandra/blob/cassandra-2.0.10/conf/cassandra.yaml)
