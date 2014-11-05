@@ -35,8 +35,12 @@ replace_or_add "sysctl vm.max_map_count line" do
   notifies :run, "execute[update-runtime-sysctl]", :immediately
 end
 
-# At runtime, updates the kernel parameters.  -p with no parameter says to load /etc/sysctl.conf -e to skip errors on unknown keys - there are some in the default config
-execute "update-runtime-sysctl" do
-  command "sysctl -e -p"
-  action :nothing
+execute "turn off swap" do
+  command "swapoff --all"
+  timeout 10
+  only_if "if [[ \"$(swapon -s | wc -l)\" -ge 2 ]]; then $(exit 0); else $(exit 1); fi" # check if swap is on.  First line is always a header
+  action :run
 end
+
+# At runtime, updates the kernel parameters.  -p with no parameter says to load /etc/sysctl.conf -e to skip errors on unknown keys - there are some in the default config
+execute "update-runtime-sysc
