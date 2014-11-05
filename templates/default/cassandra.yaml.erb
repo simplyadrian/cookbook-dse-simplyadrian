@@ -529,7 +529,13 @@ stream_throughput_outbound_megabits_per_sec: <%= node['cassandra']['stream_throu
 # this setting allows users to throttle inter dc stream throughput in addition
 # to throttling all network stream traffic as configured with
 # stream_throughput_outbound_megabits_per_sec
+<% if node['cassandra']['inter_dc_stream_throughput_outbound_Mbps'] %>
+inter_dc_stream_throughput_outbound_megabits_per_sec: <%= node['cassandra']['inter_dc_stream_throughput_outbound_Mbps'] %>
+<% else %>
 # inter_dc_stream_throughput_outbound_megabits_per_sec:
+<% end %>
+
+
 # How long the coordinator should wait for read operations to complete
 read_request_timeout_in_ms: <%= node['cassandra']['read_request_timeout_in_ms'] %>
 # How long the coordinator should wait for seq or index scans to complete

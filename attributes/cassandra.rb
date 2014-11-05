@@ -73,6 +73,7 @@ default['cassandra']['multithreaded_compaction']                    = false
 default['cassandra']['compaction_throughput_mb_per_sec']            = 16
 default['cassandra']['compaction_preheat_key_cache']                = true
 default['cassandra']['stream_throughput_outbound_megabits_per_sec'] = nil
+default['cassandra']['inter_dc_stream_throughput_outbound_Mbps']    = nil
 default['cassandra']['read_request_timeout_in_ms']                  = 5000
 default['cassandra']['range_request_timeout_in_ms']                 = 10000
 default['cassandra']['write_request_timeout_in_ms']                 = 2000
