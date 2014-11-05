@@ -523,7 +523,11 @@ compaction_preheat_key_cache: <%= node['cassandra']['compaction_preheat_key_cach
 # mostly sequential IO when streaming data during bootstrap or repair, which
 # can lead to saturating the network connection and degrading rpc performance.
 # When unset, the default is 200 Mbps or 25 MB/s.
+<% if node['cassandra']['stream_throughput_outbound_megabits_per_sec'] %>
 stream_throughput_outbound_megabits_per_sec: <%= node['cassandra']['stream_throughput_outbound_megabits_per_sec'] %>
+<% else %>
+# stream_throughput_outbound_megabits_per_sec: 200
+<% end %>
 
 # Throttles all streaming file transfer between the datacenters,
 # this setting allows users to throttle inter dc stream throughput in addition
@@ -534,7 +538,6 @@ inter_dc_stream_throughput_outbound_megabits_per_sec: <%= node['cassandra']['int
 <% else %>
 # inter_dc_stream_throughput_outbound_megabits_per_sec:
 <% end %>
-
 
 # How long the coordinator should wait for read operations to complete
 read_request_timeout_in_ms: <%= node['cassandra']['read_request_timeout_in_ms'] %>
