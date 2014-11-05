@@ -565,7 +565,11 @@ cross_node_timeout: <%= node['cassandra']['cross_node_timeout'] %>
 
 # phi value that must be reached for a host to be marked down.
 # most users should never need to adjust this.
-# phi_convict_threshold: 12
+<% if node['cassandra']['phi_convict_threshold'] %>
+phi_convict_threshold: <%= node['cassandra']['phi_convict_threshold'] %>
+<% else %>
+# phi_convict_threshold: 8
+<% end %>
 
 # endpoint_snitch -- Set this to a class that implements
 # IEndpointSnitch.  The snitch has two functions:

@@ -80,6 +80,7 @@ default['cassandra']['cas_contention_timeout_in_ms']                = 1000
 default['cassandra']['truncate_request_timeout_in_ms']              = 60000
 default['cassandra']['request_timeout_in_ms']                       = 10000
 default['cassandra']['cross_node_timeout']                          = false
+default['cassandra']['phi_convict_threshold']                       = nil
 default['cassandra']['endpoint_snitch']                             = "SimpleSnitch"
 default['cassandra']['dynamic_snitch_update_interval_in_ms']        = 100
 default['cassandra']['dynamic_snitch_reset_interval_in_ms']         = 600000
