@@ -1,7 +1,7 @@
 #Cassandra Default Info
 default['cassandra']['solr']                                        = false
 default['cassandra']['hadoop']                                      = false
-default['cassandra']['dse_version']                                 = "4.5.2-1"
+default['cassandra']['dse_version']                                 = "4.5.3-1"
 default['cassandra']['user']                                        = "cassandra"
 default['cassandra']['group']                                       = "cassandra"
 default['cassandra']['root_dir']                                    = "/var/lib/cassandra/"
