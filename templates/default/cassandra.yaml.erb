@@ -627,17 +627,9 @@ phi_convict_threshold: <%= node['cassandra']['phi_convict_threshold'] %>
 #    address, respectively.  Unless this happens to match your
 #    deployment conventions, this is best used as an example of
 #    writing a custom Snitch class and is provided in that spirit.
-# DataStax Enterprise provides
-#  - com.datastax.bdp.snitch.DseDelegateSnitch:
-#    Proximity is determined by the settings in dse.yaml:delegated_snitch to
-#    allow DSE to add location aware functionality. This is required for DSE.
 #
 # You can use a custom Snitch by setting this to the full class name
 # of the snitch, which will be assumed to be on your classpath.
-#
-# NOTE: To choose a different snitch, please change the delegated_snitch
-#       option in the dse.yaml file. For DSE installations do NOT change
-#       the endpoint_snitch setting here directly.
 endpoint_snitch: <%= node['cassandra']['endpoint_snitch'] %>
 
 # controls how often to perform the more expensive part of host score

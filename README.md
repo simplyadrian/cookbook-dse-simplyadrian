@@ -91,8 +91,6 @@ This cookbook will install DSE Cassandra by default. Other attributes you can se
  * `node["cassandra"]["active_categories"]` (default: `ADMIN,AUTH,DDL,DCL`): the categories to audit on
 
 ### dse.rb
- * `node["cassandra"]["dse"]["delegated_snitch"]` (default: `org.apache.cassandra.locator.SimpleSnitch`): the snitch to use for dse
- * `node["cassandra"]["dse"]["snitch"]` (default: `com.datastax.bdp.snitch.DseDelegateSnitch`): the snitch to use in dse.yaml
  * `node["cassandra"]["dse"]["service_name"]` (default: `dse`): the name of the service
  * `node["cassandra"]["dse"]["conf_dir"]` (default: `/etc/dse`): the directory of dse config files
  * `node["cassandra"]["dse"]["repo_user"]` (default: ``): the datastax username for the repo

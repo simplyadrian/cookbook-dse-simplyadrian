@@ -42,7 +42,7 @@ template "#{node['dse']['conf_dir']}/cassandra/cassandra-env.sh" do
 end
 
 #check what kind of snitch is set, since it requires different templates.
-case node['dse']['delegated_snitch']
+case node['cassandra']['endpoint_snitch']
   #GossipingPropertyFile
   when "org.apache.cassandra.locator.GossipingPropertyFileSnitch"
   template "#{node['dse']['conf_dir']}/cassandra/cassandra-rackdc.properties" do
