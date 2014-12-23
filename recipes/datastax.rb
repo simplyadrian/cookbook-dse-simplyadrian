@@ -22,6 +22,15 @@ end
    action :create
   end
 
+#Make sure the saved_caches directory exists (in case we changed it from default, OR it disappeared from the ephemeral nature of EC2 ssds after stop/start.)
+ directory node['cassandra']['saved_caches_directory'] do
+   owner node['cassandra']['user']
+   group node['cassandra']['group']
+   mode "755"
+   recursive true
+   action :create
+  end
+
 #install the dse-full package
 case node['platform']
 #make sure not to overwrite any conf files on upgrade
