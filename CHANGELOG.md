@@ -5,7 +5,11 @@ This file is used to list changes made in each version of the dse-nativex cookbo
 
 0.1.0
 -----
-- Derek Bromenshenkel - Initial release of dse-nativex (Supports DSE 4.5.2)
+- Derek Bromenshenkel - Initial release of dse-nativex (Supports DSE 4.5.3)
+
+0.1.1
+-----
+- Derek Bromenshenkel - Now installs OpsCenter 5.1.0 (still supports DSE 4.5.3)
 
 - - -
 Check the [Markdown Syntax Guide](http://daringfireball.net/projects/markdown/syntax) for help with Markdown.
