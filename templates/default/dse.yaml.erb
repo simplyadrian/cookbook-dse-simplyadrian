@@ -1,3 +1,18 @@
+# The snitch to be delegated by the DseDelegateSnitch
+# Out of the box, Cassandra provides:
+#  - org.apache.cassandra.locator.SimpleSnitch
+#  - org.apache.cassandra.locator.PropertyFileSnitch
+#  - org.apache.cassandra.locator.GossipingPropertyFileSnitch
+#  - org.apache.cassandra.locator.RackInferringSnitch
+#  - org.apache.cassandra.locator.Ec2Snitch
+#  - org.apache.cassandra.locator.Ec2MultiRegionSnitch
+# Full descriptions found at cassandra.yaml:endpoint_snitch.
+# DataStax Enterprise provides:
+#  - com.datastax.bdp.snitch.DseSimpleSnitch:
+#    Proximity is determined by DSE workload, which places Cassandra,
+#    Analytics, and Solr nodes into their seperate datacenters.
+delegated_snitch: <%= node['dse']['delegated_snitch'] %>
+
 # Kerberos options
 #
 # The qop is the "Quality of Protection" for each connection.  Used by clients
@@ -142,3 +157,9 @@ system_key_directory: /etc/dse/conf
 # This the only initial value, once it is reconfigured, the new value is stored
 # and retrieved on next run.
 initial_spark_worker_resources: 0.7
+
+# Retries setting when hive inserts data to C* table. insert_max_retries is max number of retries
+# insert_retry_sleep_period is the period of time in milliseconds between retries
+hive_options:
+  insert_max_retries: 6
+  insert_retry_sleep_period: 50

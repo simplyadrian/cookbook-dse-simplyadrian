@@ -1,6 +1,7 @@
 #Install the datastax-agent package
 package "datastax-agent" do
   version node['opscenter-agent']['version']
+  options "--nogpgcheck"
   action :install
 end
 

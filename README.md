@@ -17,8 +17,8 @@ This cookbook attempts to manage almost all Apache Cassandra configuration setti
 
 This cookbook currently provides
 
- * v0.1.0: Datastax 4.5.3 (Datastax Enterprise Edition) via packages.
- * v1.0.0: Datastax 4.6.0 (Datastax Enterprise Edition) via packages.
+ * v0.1.0: Datastax 4.5.3 (Datastax Enterprise Edition) via packages (and OpsCenter 5.0.2).
+ * v0.1.1: Datastax 4.5.3 (Datastax Enterprise Edition) via packages (and OpsCenter 5.1.0).
 
 ## Requirements
 

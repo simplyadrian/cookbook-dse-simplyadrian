@@ -99,7 +99,7 @@ calculate_heap_sizes()
 
 java_ver_output=`"${JAVA:-java}" -version 2>&1`
 
-jvmver=`echo "$java_ver_output" | grep 'java version' | awk -F'"' 'NR==1 {print $2}'`
+jvmver=`echo "$java_ver_output" | grep '[openjdk|java] version' | awk -F'"' 'NR==1 {print $2}'`
 JVM_VERSION=${jvmver%_*}
 JVM_PATCH_VERSION=${jvmver#*_}
 
@@ -164,7 +164,7 @@ HEAP_NEWSIZE="<%= node['cassandra']['heap_newsize'] %>"
 <% end %>
 
 # Set this to control the amount of arenas per-thread in glibc
-#MALLOC_ARENA_MAX=4
+#export MALLOC_ARENA_MAX=4
 
 if [ "x$MAX_HEAP_SIZE" = "x" ] && [ "x$HEAP_NEWSIZE" = "x" ]; then
     calculate_heap_sizes
@@ -177,7 +177,7 @@ fi
 
 if [ "x$MALLOC_ARENA_MAX" = "x" ]
 then
-    MALLOC_ARENA_MAX=4
+    export MALLOC_ARENA_MAX=4
 fi
 
 # Specifies the default port over which Cassandra will be available for
@@ -204,9 +204,6 @@ JVM_OPTS="$JVM_OPTS $DSE_OPTS"
 
 # add the jamm javaagent
 JVM_OPTS="$JVM_OPTS -javaagent:$CASSANDRA_HOME/lib/jamm-0.2.5.jar"
-
-# some JVMs will fill up their heap when accessed via JMX, see CASSANDRA-6541
-JVM_OPTS="$JVM_OPTS -XX:+CMSClassUnloadingEnabled"
 
 # some JVMs will fill up their heap when accessed via JMX, see CASSANDRA-6541
 JVM_OPTS="$JVM_OPTS -XX:+CMSClassUnloadingEnabled"
@@ -265,6 +262,7 @@ fi
 
 # GC logging options -- uncomment to enable
 <%= "# " unless node['cassandra']['gc_log_PrintGCDetails'] %>JVM_OPTS="$JVM_OPTS -XX:+PrintGCDetails"
+<%= "# " unless node['cassandra']['gc_log_PrintGCCause'] %>JVM_OPTS="$JVM_OPTS -XX:+PrintGCCause"
 <%= "# " unless node['cassandra']['gc_log_PrintGCDateStamps'] %>JVM_OPTS="$JVM_OPTS -XX:+PrintGCDateStamps"
 <%= "# " unless node['cassandra']['gc_log_PrintHeapAtGC'] %>JVM_OPTS="$JVM_OPTS -XX:+PrintHeapAtGC"
 <%= "# " unless node['cassandra']['gc_log_PrintTenuringDistribution'] %>JVM_OPTS="$JVM_OPTS -XX:+PrintTenuringDistribution"
