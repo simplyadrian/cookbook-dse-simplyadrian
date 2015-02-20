@@ -4,7 +4,7 @@ maintainer_email 'derek.bromenshenkel@nativex.com'
 license          'All rights reserved'
 description      'Installs/Configures DataStax Enterprise'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          '0.1.1'
+version          '0.2.0'
 
 depends "java"
 depends "yum"
