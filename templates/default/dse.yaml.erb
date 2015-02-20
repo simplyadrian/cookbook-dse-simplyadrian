@@ -157,3 +157,9 @@ system_key_directory: /etc/dse/conf
 # This the only initial value, once it is reconfigured, the new value is stored
 # and retrieved on next run.
 initial_spark_worker_resources: 0.7
+
+# Retries setting when hive inserts data to C* table. insert_max_retries is max number of retries
+# insert_retry_sleep_period is the period of time in milliseconds between retries
+hive_options:
+  insert_max_retries: 6
+  insert_retry_sleep_period: 50

@@ -100,6 +100,7 @@ default['cassandra']['jvm_gc_MaxTenuringThreshold']                 = 1
 default['cassandra']['jvm_gc_CMSInitiatingOccupancyFraction']       = "75"
 default['cassandra']['jvm_gc_UseNUMA']                              = false
 default['cassandra']['gc_log_PrintGCDetails']                       = false
+default['cassandra']['gc_log_PrintGCCause']                         = false
 default['cassandra']['gc_log_PrintGCDateStamps']                    = false
 default['cassandra']['gc_log_PrintHeapAtGC']                        = false
 default['cassandra']['gc_log_PrintTenuringDistribution']            = false
