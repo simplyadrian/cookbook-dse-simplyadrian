@@ -15,6 +15,10 @@ This file is used to list changes made in each version of the dse-nativex cookbo
 -----
 - Derek Bromenshenkel - Tweaks to align capabilities with what is needed for Production deployment. (still supports DSE 4.5.3)
 
+0.3.0
+-----
+- Derek Bromenshenkel - New functionality for configuring scheduled maintenace tasks.
+
 - - -
 Check the [Markdown Syntax Guide](http://daringfireball.net/projects/markdown/syntax) for help with Markdown.
 
