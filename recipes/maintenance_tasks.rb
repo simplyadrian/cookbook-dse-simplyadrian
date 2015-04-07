@@ -17,7 +17,16 @@ end
 
 ## TODO: Repair scheduling
 
-## TODO: Template for ActivityTracking CF drop.
+# We only want to do this on one node in the entire cluster. A way to ensure consistent singularity 
+# is to check if the current node is the "first" seed node, and only create the drop script there.
+template "Cassandra Script 'ActivityTrackingDropCF.sh'" do
+  source "cassandrascripts/ActivityTrackingDropCF.sh.erb"
+  path "/root/cassandrascripts/ActivityTrackingDropCF.sh"
+  group 'root'
+  owner 'root'
+  mode '0755'
+  action ( node['dse-nativex']['cron_activitytracking_drop_enabled'] && DseNativexHelper.isFirstSeed(node) ) ? :create : :delete
+end
 
 # We only want to do this on one node in the entire cluster. A way to ensure consistent singularity 
 # is to check if the current node is the "first" seed node, and only enable the task there.
@@ -31,8 +40,8 @@ cron "Cassandra ActivityTracking CF Drop" do
   command "/root/cassandrascripts/ActivityTrackingDropCF.sh #{node['dse-nativex']['activitytracking_keep_weeks'] * 7}"
 end
 
-cookbook_file "Cassandra Script 'removeWeeklyActivityTrackingCFfiles.sh'" do
-  source "cassandrascripts/removeWeeklyActivityTrackingCFfiles.sh"
+template "Cassandra Script 'removeWeeklyActivityTrackingCFfiles.sh'" do
+  source "cassandrascripts/removeWeeklyActivityTrackingCFfiles.sh.erb"
   path "/root/cassandrascripts/removeWeeklyActivityTrackingCFfiles.sh"
   group 'root'
   owner 'root'
