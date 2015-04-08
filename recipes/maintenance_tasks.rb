@@ -25,7 +25,7 @@ if DseNativexHelper.canDetermineRepairWeekday?(node)
     hour node['dse-nativex']['cron_cluster_repair_hour']
     day node['dse-nativex']['cron_cluster_repair_day']
     month node['dse-nativex']['cron_cluster_repair_month']
-    weekday { DseNativexHelper.determineRepairWeekday(node) }
+    weekday DseNativexHelper.determineRepairWeekday(node)
     command "/root/cassandrascripts/localClusterRepair.sh"
   end
 else
@@ -34,15 +34,16 @@ else
     action :delete
   end
   
-  log "Log Repair disablement" do
-    level :warn
-    message "Disabling the cron task for cluster repair even though it is enabled, because the Weekday cannot be determined!"
-    only_if node['dse-nativex']['cron_cluster_repair_enabled']
+  if node['dse-nativex']['cron_cluster_repair_enabled']
+    log "Log Repair disablement" do
+      level :warn
+      message "Disabling the cron task for cluster repair even though it is enabled, because the Weekday cannot be determined!"
+    end
   end
 end
 
 template "Cassandra Script 'localClusterRepair.sh'" do
-  source "cassandrascripts/localClusterRepair.sh.erb"
+  source "maint_scripts/localClusterRepair.sh.erb"
   path "/root/cassandrascripts/localClusterRepair.sh"
   group 'root'
   owner 'root'
@@ -53,7 +54,7 @@ end
 # We only want to do this on one node in the entire cluster. A way to ensure consistent singularity 
 # is to check if the current node is the "first" seed node, and only create the drop script there.
 template "Cassandra Script 'ActivityTrackingDropCF.sh'" do
-  source "cassandrascripts/ActivityTrackingDropCF.sh.erb"
+  source "maint_scripts/ActivityTrackingDropCF.sh.erb"
   path "/root/cassandrascripts/ActivityTrackingDropCF.sh"
   group 'root'
   owner 'root'
@@ -74,7 +75,7 @@ cron "Cassandra ActivityTracking CF Drop" do
 end
 
 template "Cassandra Script 'removeWeeklyActivityTrackingCFfiles.sh'" do
-  source "cassandrascripts/removeWeeklyActivityTrackingCFfiles.sh.erb"
+  source "maint_scripts/removeWeeklyActivityTrackingCFfiles.sh.erb"
   path "/root/cassandrascripts/removeWeeklyActivityTrackingCFfiles.sh"
   group 'root'
   owner 'root'

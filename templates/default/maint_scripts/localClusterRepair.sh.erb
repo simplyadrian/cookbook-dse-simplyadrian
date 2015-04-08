@@ -16,7 +16,7 @@ echo -e "Repair Script Started: $(date)\n" > $bodyfile
 # Create Script folder
 mkdir $script
 # Execute Repairs
-nodetool repair -pr -local Mobile <%= node["dse-nativex"]["cron_cluster_repair_mobile_tables"].join(' ') %> >> $bodyfile 2>&1
+nodetool repair -pr Mobile <%= node["dse-nativex"]["cron_cluster_repair_mobile_tables"].join(' ') %> >> $bodyfile 2>&1
 retval=$?
 echo -e "Repair Command finished: $(date)\n" >> $bodyfile
 
