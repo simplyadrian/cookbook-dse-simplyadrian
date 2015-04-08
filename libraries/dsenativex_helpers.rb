@@ -32,7 +32,7 @@ module DseNativexHelper
       # or a set of integers
       if @@availabilityZoneAlphas.include?(theNode["cassandra"]["rack"][-1])
         return (@@availabilityZoneAlphas.index(theNode["cassandra"]["rack"][-1]) + 1) % 7
-      else if @@rackDigits.include?(theNode["cassandra"]["rack"][-1])
+      elsif @@rackDigits.include?(theNode["cassandra"]["rack"][-1])
         return (@@rackDigits.index(theNode["cassandra"]["rack"][-1]) + 1) % 7
       else
         raise "Could not automatically determine the Repair weekday from node['cassandra']['rack'] value of '#{theNode['cassandra']['rack']}'"
