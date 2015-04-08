@@ -11,7 +11,7 @@ bodyfile="/tmp/cassscripts/archiveATDrop"
 shortsubject="The Number of days is too short"
 errsubject="ActivityTrackingDrop script syntax error on $HOSTNAME"
 sucesssubject="The drop of $week was successful"
-email="root.linux@nativex.com,corey.hemminger@nativex.com,derek.bromenshenkel@nativex.com"
+email="<%= node['dse-nativex']['maint_task_emails'] %>"
 script="/tmp/cassscripts/dropscript.txt"
 errors="/tmp/cassscripts/errors.txt"
 

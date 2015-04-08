@@ -8,7 +8,7 @@ script="/tmp/script"
 
 errsubject="Repair Error on $HOSTNAME"
 sucesssubject="Repair Completed on $HOSTNAME"
-email="root.linux@nativex.com,corey.hemminger@nativex.com,derek.bromenshenkel@nativex.com"
+email="<%= node['dse-nativex']['maint_task_emails'] %>"
 
 
 # Start repairs

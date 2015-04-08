@@ -11,7 +11,7 @@ bodyfile="/tmp/archiveATDrop"
 shortsubject="The Number of days is too short"
 errsubject="Removing Weeking Activity script failed on $HOSTNAME"
 sucesssubject="The removal of $week sstables was successful on $HOSTNAME"
-email="root.linux@nativex.com,corey.hemminger@nativex.com,derek.bromenshenkel@nativex.com"
+email="<%= node['dse-nativex']['maint_task_emails'] %>"
 errors="/tmp/errors.txt"
 sleep=$((10#$(echo $HOSTNAME | grep -o -E ".{2}$")))s
 
