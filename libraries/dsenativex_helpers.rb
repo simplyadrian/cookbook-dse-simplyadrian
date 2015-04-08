@@ -35,7 +35,7 @@ module DseNativexHelper
       else if @@rackDigits.include?(theNode["cassandra"]["rack"][-1])
         return (@@rackDigits.index(theNode["cassandra"]["rack"][-1]) + 1) % 7
       else
-        raise "Could not automatically determine the Repair weekday from node['cassandra']['rack'] value of '#{theNode["cassandra"]["rack"]}'"
+        raise "Could not automatically determine the Repair weekday from node['cassandra']['rack'] value of '#{theNode['cassandra']['rack']}'"
       end
     else
       # Otherwise we just use whatever the user has set the property to be.
