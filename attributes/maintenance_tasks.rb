@@ -1,5 +1,5 @@
 default['dse-nativex']['activitytracking_keep_weeks']                = 2 #current + 1
-default['dse-nativex']['cron_activitytracking_drop_enabled']         = true
+default['dse-nativex']['cron_activitytracking_drop_enabled']         = false
 default['dse-nativex']['cron_activitytracking_drop_minute']          = '0'
 default['dse-nativex']['cron_activitytracking_drop_hour']            = '9'
 default['dse-nativex']['cron_activitytracking_drop_day']             = '*'
@@ -11,6 +11,16 @@ default['dse-nativex']['cron_activitytracking_file_cleanup_hour']    = '9'
 default['dse-nativex']['cron_activitytracking_file_cleanup_day']     = '*'
 default['dse-nativex']['cron_activitytracking_file_cleanup_month']   = '*'
 default['dse-nativex']['cron_activitytracking_file_cleanup_weekday'] = '1'
+default['dse-nativex']['cron_cluster_repair_enabled']                = false
+default['dse-nativex']['cron_cluster_repair_minute']                 = '0'
+default['dse-nativex']['cron_cluster_repair_hour']                   = '0'
+default['dse-nativex']['cron_cluster_repair_day']                    = '*'
+default['dse-nativex']['cron_cluster_repair_month']                  = '*'
+default['dse-nativex']['cron_cluster_repair_weekday']                = 'auto'
+default['dse-nativex']['cron_cluster_repair_mobile_tables']          = [ "Device", "DeviceActivityHistory", "DeviceIncentiveHistory",
+                                                                         "DeviceUDID", "DeviceUDID_IDX_DeviceId", "OfferConversionDayAggregate",
+                                                                         "OfferConversionHourAggregate", "OfferConversionMonthAggregate",
+                                                                         "OfferConversionUnaggregated", "PaymentReceipt" ]
 default['dse-nativex']['cron_take_snapshot_enabled']                 = false
 default['dse-nativex']['cron_take_snapshot_minute']                  = '45'
 default['dse-nativex']['cron_take_snapshot_hour']                    = '9'

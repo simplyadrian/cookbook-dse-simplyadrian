@@ -15,8 +15,41 @@ directory '/root/cassandrascripts' do
   action :create
 end
 
-## TODO: Repair scheduling
+if DseNativexHelper.canDetermineRepairWeekday?(node)
+  # Schedule cluster repair. 
+  # In "auto" mode, do this "safely" by scheduling one Cassandra Rack (== "availability zone" in EC2) per day.
+  # Otherwise the user can override the "weekday" attribute.
+  cron "Cassandra Cluster Repair" do
+    action node['dse-nativex']['cron_cluster_repair_enabled'] ? :create : :delete
+    minute node['dse-nativex']['cron_cluster_repair_minute']
+    hour node['dse-nativex']['cron_cluster_repair_hour']
+    day node['dse-nativex']['cron_cluster_repair_day']
+    month node['dse-nativex']['cron_cluster_repair_month']
+    weekday { DseNativexHelper.determineRepairWeekday(node) }
+    command "/root/cassandrascripts/localClusterRepair.sh"
+  end
+else
+  # If we can't reliably determine the schedule, then delete the cron task even if repair is enabled.
+  cron "Cassandra Cluster Repair" do
+    action :delete
+  end
+  
+  log "Log Repair disablement" do
+    level :warn
+    message "Disabling the cron task for cluster repair even though it is enabled, because the Weekday cannot be determined!"
+    only_if node['dse-nativex']['cron_cluster_repair_enabled']
+  end
+end
 
+template "Cassandra Script 'localClusterRepair.sh'" do
+  source "cassandrascripts/localClusterRepair.sh.erb"
+  path "/root/cassandrascripts/localClusterRepair.sh"
+  group 'root'
+  owner 'root'
+  mode '0755'
+  action node['dse-nativex']['cron_cluster_repair_enabled'] ? :create : :delete
+end
+  
 # We only want to do this on one node in the entire cluster. A way to ensure consistent singularity 
 # is to check if the current node is the "first" seed node, and only create the drop script there.
 template "Cassandra Script 'ActivityTrackingDropCF.sh'" do
@@ -25,13 +58,13 @@ template "Cassandra Script 'ActivityTrackingDropCF.sh'" do
   group 'root'
   owner 'root'
   mode '0755'
-  action ( node['dse-nativex']['cron_activitytracking_drop_enabled'] && DseNativexHelper.isFirstSeed(node) ) ? :create : :delete
+  action ( node['dse-nativex']['cron_activitytracking_drop_enabled'] && DseNativexHelper.isFirstSeed?(node) ) ? :create : :delete
 end
 
 # We only want to do this on one node in the entire cluster. A way to ensure consistent singularity 
 # is to check if the current node is the "first" seed node, and only enable the task there.
 cron "Cassandra ActivityTracking CF Drop" do
-  action ( node['dse-nativex']['cron_activitytracking_drop_enabled'] && DseNativexHelper.isFirstSeed(node) ) ? :create : :delete
+  action ( node['dse-nativex']['cron_activitytracking_drop_enabled'] && DseNativexHelper.isFirstSeed?(node) ) ? :create : :delete
   minute node['dse-nativex']['cron_activitytracking_drop_minute']
   hour node['dse-nativex']['cron_activitytracking_drop_hour']
   day node['dse-nativex']['cron_activitytracking_drop_day']
