@@ -17,7 +17,7 @@ This file is used to list changes made in each version of the dse-nativex cookbo
 
 0.3.0
 -----
-- Derek Bromenshenkel - New functionality for configuring scheduled maintenace tasks.
+- Derek Bromenshenkel - New functionality for configuring scheduled maintenance tasks.
 
 - - -
 Check the [Markdown Syntax Guide](http://daringfireball.net/projects/markdown/syntax) for help with Markdown.
