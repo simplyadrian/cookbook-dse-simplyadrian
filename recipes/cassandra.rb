@@ -54,3 +54,14 @@ case node['dse']['delegated_snitch']
   else
     Chef::Log.warn("Unsupported Snitch!!")
   end
+
+# If heapdump dir is specified, make sure it exists
+directory "heapdump directory" do
+  path node['cassandra']['heapdump_dir']
+  owner node['cassandra']['user']
+  group node['cassandra']['group']
+  mode "755"
+  recursive true
+  action :create
+  only_if node['cassandra']['heapdump_dir']
+end

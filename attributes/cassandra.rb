@@ -6,6 +6,7 @@ default['cassandra']['user']                                        = "cassandra
 default['cassandra']['group']                                       = "cassandra"
 default['cassandra']['root_dir']                                    = "/var/lib/cassandra/"
 default['cassandra']['log_directory']                               = "/var/log/cassandra/"
+default['cassandra']['heapdump_dir']                                = nil
 default['cassandra']['jar_lib_dir']                                 = "/usr/share/dse/cassandra/lib"
 default['cassandra']['vnodes']                                      = true
 default['cassandra']['datacenter']                                  = "DC1"
