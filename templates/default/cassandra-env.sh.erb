@@ -224,6 +224,9 @@ JVM_OPTS="$JVM_OPTS -Xmx${MAX_HEAP_SIZE}"
 JVM_OPTS="$JVM_OPTS -Xmn${HEAP_NEWSIZE}"
 JVM_OPTS="$JVM_OPTS -XX:+HeapDumpOnOutOfMemoryError"
 
+<% if node['cassandra']['heapdump_dir'] %>
+CASSANDRA_HEAPDUMP_DIR=<%= node['cassandra']['heapdump_dir'] %>
+<% end %>
 # set jvm HeapDumpPath with CASSANDRA_HEAPDUMP_DIR
 if [ "x$CASSANDRA_HEAPDUMP_DIR" != "x" ]; then
     JVM_OPTS="$JVM_OPTS -XX:HeapDumpPath=$CASSANDRA_HEAPDUMP_DIR/cassandra-`date +%s`-pid$$.hprof"
