@@ -63,5 +63,5 @@ directory "heapdump directory" do
   mode "755"
   recursive true
   action :create
-  only_if node['cassandra']['heapdump_dir']
+  only_if File.directory?(node['cassandra']['heapdump_dir'])
 end
