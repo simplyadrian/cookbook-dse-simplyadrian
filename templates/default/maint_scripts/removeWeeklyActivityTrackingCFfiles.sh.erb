@@ -11,17 +11,17 @@ bodyfile="/tmp/archiveATDrop"
 shortsubject="The Number of days is too short"
 errsubject="Removing Weeking Activity script failed on $HOSTNAME"
 sucesssubject="The removal of $week sstables was successful on $HOSTNAME"
-email="<%= node['dse-nativex']['maint_task_emails'] %>"
+email="<%= node['dse-simplyadrian']['maint_task_emails'] %>"
 errors="/tmp/errors.txt"
 sleep=$((10#$(echo $HOSTNAME | grep -o -E ".{2}$")))s
 
 
 echo -e "Drop Script Started: $(date)\n" > $bodyfile
-if [ $days -lt <%= node['dse-nativex']['activitytracking_keep_weeks'] * 7 %> ]; then
-    echo -e "The number of days $days on the script argument should not be less than <%= node['dse-nativex']['activitytracking_keep_weeks'] * 7 %> Days on $HOSTNAME\n" >> $bodyfile
+if [ $days -lt <%= node['dse-simplyadrian']['activitytracking_keep_weeks'] * 7 %> ]; then
+    echo -e "The number of days $days on the script argument should not be less than <%= node['dse-simplyadrian']['activitytracking_keep_weeks'] * 7 %> Days on $HOSTNAME\n" >> $bodyfile
     /bin/mail -s "$shortsubject" "$email" < $bodyfile
     exit 1;
-elif [ $days -ge <%= node['dse-nativex']['activitytracking_keep_weeks'] * 7 %> ]; then
+elif [ $days -ge <%= node['dse-simplyadrian']['activitytracking_keep_weeks'] * 7 %> ]; then
     sleep $sleep
 	echo -e "Remove CF folder started: $(date)\n" >> $bodyfile
     rm -rf <%= node['cassandra']['root_dir'] %>data/Mobile/$week

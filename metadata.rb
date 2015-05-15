@@ -1,6 +1,6 @@
-name             'dse-nativex'
-maintainer       'NativeX'
-maintainer_email 'derek.bromenshenkel@nativex.com'
+name             'dse-simplyadrian'
+maintainer       'simplyadrian'
+maintainer_email 'simplyadrian@gmail.com'
 license          'All rights reserved'
 description      'Installs/Configures DataStax Enterprise'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
@@ -10,4 +10,4 @@ depends "java"
 depends "yum"
 depends "limits"
 depends "line"
-depends "ohai-nativex"
+depends "ohai-simplyadrian"

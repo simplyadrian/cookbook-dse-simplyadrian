@@ -1,4 +1,4 @@
-module DseNativexHelper
+module DseSimplyadrianHelper
   @@availabilityZoneAlphas = ("a".."g").to_a
   @@rackDigits = (1..7).to_a
 
@@ -11,7 +11,7 @@ module DseNativexHelper
   end
 
   def self.canDetermineRepairWeekday?( theNode )
-    if theNode['dse-nativex']['cron_cluster_repair_weekday'].downcase == "auto"
+    if theNode['dse-simplyadrian']['cron_cluster_repair_weekday'].downcase == "auto"
       # If 'auto' then we try to map the last digit in the "rack" property to
       # either a set of letters (representing an EC2 availability zone, for example)
       # or a set of integers
@@ -26,7 +26,7 @@ module DseNativexHelper
   end
   
   def self.determineRepairWeekday( theNode )
-    if theNode['dse-nativex']['cron_cluster_repair_weekday'].downcase == "auto"
+    if theNode['dse-simplyadrian']['cron_cluster_repair_weekday'].downcase == "auto"
       # If 'auto' then we try to map the last digit in the "rack" property to
       # either a set of letters (representing an EC2 availability zone, for example)
       # or a set of integers
@@ -39,7 +39,7 @@ module DseNativexHelper
       end
     else
       # Otherwise we just use whatever the user has set the property to be.
-      return theNode['dse-nativex']['cron_cluster_repair_weekday']
+      return theNode['dse-simplyadrian']['cron_cluster_repair_weekday']
     end
   end
 end

@@ -1,11 +1,11 @@
-dse-nativex CHANGELOG
+dse-simplyadrian CHANGELOG
 =====================
 
-This file is used to list changes made in each version of the dse-nativex cookbook.
+This file is used to list changes made in each version of the dse-simplyadrian cookbook.
 
 0.1.0
 -----
-- Derek Bromenshenkel - Initial release of dse-nativex (Supports DSE 4.5.3)
+- Derek Bromenshenkel - Initial release of dse-simplyadrian (Supports DSE 4.5.3)
 
 0.1.1
 -----

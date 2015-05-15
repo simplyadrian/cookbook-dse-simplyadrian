@@ -1,7 +1,7 @@
-## Cookbook Name:: dse-nativex
+## Cookbook Name:: dse-simplyadrian
 ## Recipe:: dse_service.rb
 ##
-## Copyright 2014, NativeX
+## Copyright 2014, simplyadrian
 ##
 ## All rights reserved - Do Not Redistribute
 ##

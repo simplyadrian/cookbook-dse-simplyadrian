@@ -1,4 +1,4 @@
-dse-nativex Cookbook
+dse-simplyadrian Cookbook
 ====================
 # Datastax Enterprise Chef Cookbook (Apache Cassandra)
 This cookbook installs and configures Datastax Enterprise. More info is here ([DataStax Enterprise](http://www.datastax.com/products/)).
@@ -7,7 +7,7 @@ It uses officially released Datastax packages. It can tweak the Cassandra config
 
 ## Usage
 
-Override the attributes you wish to change and use the dse-nativex:cassandra recipe to install Apache Cassandra.
+Override the attributes you wish to change and use the dse-simplyadrian:cassandra recipe to install Apache Cassandra.
 
 ##Scope
 
@@ -32,17 +32,17 @@ Tested on:
 ## Recipes
 The provided recipes are:
 
-* `dse-nativex::default`: Sets up the default installation which is to install Apache Cassandra DSE component only (with suggested OS configuration), alongside an OpsCenter agent.
-* `dse-nativex::cassandra`: Configures the the templates for config files in /etc/dse/.
-* `dse-nativex::datastax`: Sets up Java and installs the 'dse-full' package. Ensures the data/saved_caches/commit_log directories exist.
-* `dse-nativex::determine_ec2_topology`: When running in EC2, automatically sets the Datacenter==AWS Region and Rack=AWS Availability Zone
-* `dse-nativex::determine_seeds`: Optionally can be used to autodetect the first `default['cassandra']['num_seeds_per_dc']` nodes in each datacenter to join the cluster as seeds.
-* `dse-nativex::dse_service`: Manages the DSE service.
-* `dse-nativex::jemalloc`: Installs the JEMalloc package/library on the system to make it available as one of the Off-heap memory allocators.
-* `dse-nativex::jna`: Installs the JNA library on the system. See: http://www.datastax.com/documentation/cassandra/2.0/cassandra/install/installJnaTar.html
-* `dse-nativex::opscenter-agent`: Installs (via datastax-agent package) the OpsCenter agent and configures it.
-* `dse-nativex::os_settings`: Configures OS limits and other OS-specific settings
-* `dse-nativex::maintenance_tasks`: Configures NativeX-specific scheduled maintenance tasks like Repair, snaphots/backups, table cleanup, etc.
+* `dse-simplyadrian::default`: Sets up the default installation which is to install Apache Cassandra DSE component only (with suggested OS configuration), alongside an OpsCenter agent.
+* `dse-simplyadrian::cassandra`: Configures the the templates for config files in /etc/dse/.
+* `dse-simplyadrian::datastax`: Sets up Java and installs the 'dse-full' package. Ensures the data/saved_caches/commit_log directories exist.
+* `dse-simplyadrian::determine_ec2_topology`: When running in EC2, automatically sets the Datacenter==AWS Region and Rack=AWS Availability Zone
+* `dse-simplyadrian::determine_seeds`: Optionally can be used to autodetect the first `default['cassandra']['num_seeds_per_dc']` nodes in each datacenter to join the cluster as seeds.
+* `dse-simplyadrian::dse_service`: Manages the DSE service.
+* `dse-simplyadrian::jemalloc`: Installs the JEMalloc package/library on the system to make it available as one of the Off-heap memory allocators.
+* `dse-simplyadrian::jna`: Installs the JNA library on the system. See: http://www.datastax.com/documentation/cassandra/2.0/cassandra/install/installJnaTar.html
+* `dse-simplyadrian::opscenter-agent`: Installs (via datastax-agent package) the OpsCenter agent and configures it.
+* `dse-simplyadrian::os_settings`: Configures OS limits and other OS-specific settings
+* `dse-simplyadrian::maintenance_tasks`: Configures simplyadrian-specific scheduled maintenance tasks like Repair, snaphots/backups, table cleanup, etc.
 
 ## Attributes
 This cookbook will install DSE Cassandra by default. If no attributes are overridden, it will install with the default cassandra.yaml settings found in the Apache Cassandra project.
@@ -84,7 +84,7 @@ This cookbook will install DSE Cassandra by default. If no attributes are overri
  * `node["cassandra"]["audit_logging"]` (default: `false`): turn on audit logging
  * `node["cassandra"]["audit_dir"]` (default: `/var/log/cassandra`): the directory to put audit logs in
  * `node["cassandra"]["active_categories"]` (default: `ADMIN,AUTH,DDL,DCL`): the categories to audit on
-##### nativex Syslog Settings
+##### simplyadrian Syslog Settings
  * `node['cassandra']['log_syslog_enabled']`: (default: `false`)
  * `node['cassandra']['log_syslog_host']`: (default: `""`) IP or hostname of syslog server.
  * `node['cassandra']['log_syslog_threshold']`: (default: `"WARN"`) The level to log to Syslog.
@@ -136,27 +136,27 @@ These attributes are used to configure the datastax-agent. This is used with Dat
 * `node['opscenter-agent']['is_opscenter_cluster_configured']`: (default: `false`) Whether or not the Cluster in OpsCenter is already configured.
 
 ### maintenance_tasks.rb
-These are NativeX-specific settings for configuring the timing and behavior of our most common maintenance tasks.  Note that all of the time-period attributes for CRON tasks follow the Chef 'cron' resource and subsequently the Linux 'crontab' specification.
+These are simplyadrian-specific settings for configuring the timing and behavior of our most common maintenance tasks.  Note that all of the time-period attributes for CRON tasks follow the Chef 'cron' resource and subsequently the Linux 'crontab' specification.
 
-* `node['dse-nativex']['activitytracking_keep_weeks']` (default: `2`, current + 1 week): The number of weekly yyyy_ww_ActivityTracking tables to keep around.
-* `node['dse-nativex']['cron_activitytracking_drop_enabled']` (default: `false`): Enables or disables the cron task to drop yyyy_ww_ActivityTracking tables older than `node['dse-nativex']['activitytracking_keep_weeks']`
-* `node['dse-nativex']['cron_activitytracking_drop_minute']` (default: `'0'`): Specifies the minute of the hour the cron task should run.
-* `node['dse-nativex']['cron_activitytracking_drop_hour']` (default: `'9'`): Specifies the hour of the day the cron task should run.
-* `node['dse-nativex']['cron_activitytracking_drop_day']` (default: `'*'`): Specifies the day of the month the cron task should run.
-* `node['dse-nativex']['cron_activitytracking_drop_month']` (default: `'*'`): Specifies the month of the year the cron task should run.
-* `node['dse-nativex']['cron_activitytracking_drop_weekday']` (default: `'1'`): Specifies the day of week the cron task should run.
-* `node['dse-nativex']['cron_activitytracking_file_cleanup_enabled']` (default: `node['dse-nativex']['cron_activitytracking_drop_enabled']`): 
-* `node['dse-nativex']['cron_activitytracking_file_cleanup_minute']` (default: `'30'`): Specifies the minute of the hour the cron task should run.
-* `node['dse-nativex']['cron_activitytracking_file_cleanup_hour']` (default: `'9'`): Specifies the hour of the day the cron task should run.
-* `node['dse-nativex']['cron_activitytracking_file_cleanup_day']` (default: `'*'`): Specifies the day of the month the cron task should run.
-* `node['dse-nativex']['cron_activitytracking_file_cleanup_month']` (default: `'*'`): Specifies the month of the year the cron task should run.
-* `node['dse-nativex']['cron_activitytracking_file_cleanup_weekday']` (default: `'1'`): Specifies the day of week the cron task should run.
-* `node['dse-nativex']['cron_cluster_repair_enabled']` (default: `false`): Enables or disables the cron task to regularly perform cluster Repair.
-* `node['dse-nativex']['cron_cluster_repair_minute']` (default: `'0'`): Specifies the minute of the hour the cron task should run.
-* `node['dse-nativex']['cron_cluster_repair_hour']` (default: `'0'`): Specifies the hour of the day the cron task should run.
-* `node['dse-nativex']['cron_cluster_repair_day']` (default: `'*'`): Specifies the day of the month the cron task should run.
-* `node['dse-nativex']['cron_cluster_repair_month']` (default: `'*'`): Specifies the month of the year the cron task should run.
-* `node['dse-nativex']['cron_cluster_repair_weekday']` (default: `'auto'`): Specifies the day of week the cron task should run. 
+* `node['dse-simplyadrian']['activitytracking_keep_weeks']` (default: `2`, current + 1 week): The number of weekly yyyy_ww_ActivityTracking tables to keep around.
+* `node['dse-simplyadrian']['cron_activitytracking_drop_enabled']` (default: `false`): Enables or disables the cron task to drop yyyy_ww_ActivityTracking tables older than `node['dse-simplyadrian']['activitytracking_keep_weeks']`
+* `node['dse-simplyadrian']['cron_activitytracking_drop_minute']` (default: `'0'`): Specifies the minute of the hour the cron task should run.
+* `node['dse-simplyadrian']['cron_activitytracking_drop_hour']` (default: `'9'`): Specifies the hour of the day the cron task should run.
+* `node['dse-simplyadrian']['cron_activitytracking_drop_day']` (default: `'*'`): Specifies the day of the month the cron task should run.
+* `node['dse-simplyadrian']['cron_activitytracking_drop_month']` (default: `'*'`): Specifies the month of the year the cron task should run.
+* `node['dse-simplyadrian']['cron_activitytracking_drop_weekday']` (default: `'1'`): Specifies the day of week the cron task should run.
+* `node['dse-simplyadrian']['cron_activitytracking_file_cleanup_enabled']` (default: `node['dse-simplyadrian']['cron_activitytracking_drop_enabled']`): 
+* `node['dse-simplyadrian']['cron_activitytracking_file_cleanup_minute']` (default: `'30'`): Specifies the minute of the hour the cron task should run.
+* `node['dse-simplyadrian']['cron_activitytracking_file_cleanup_hour']` (default: `'9'`): Specifies the hour of the day the cron task should run.
+* `node['dse-simplyadrian']['cron_activitytracking_file_cleanup_day']` (default: `'*'`): Specifies the day of the month the cron task should run.
+* `node['dse-simplyadrian']['cron_activitytracking_file_cleanup_month']` (default: `'*'`): Specifies the month of the year the cron task should run.
+* `node['dse-simplyadrian']['cron_activitytracking_file_cleanup_weekday']` (default: `'1'`): Specifies the day of week the cron task should run.
+* `node['dse-simplyadrian']['cron_cluster_repair_enabled']` (default: `false`): Enables or disables the cron task to regularly perform cluster Repair.
+* `node['dse-simplyadrian']['cron_cluster_repair_minute']` (default: `'0'`): Specifies the minute of the hour the cron task should run.
+* `node['dse-simplyadrian']['cron_cluster_repair_hour']` (default: `'0'`): Specifies the hour of the day the cron task should run.
+* `node['dse-simplyadrian']['cron_cluster_repair_day']` (default: `'*'`): Specifies the day of the month the cron task should run.
+* `node['dse-simplyadrian']['cron_cluster_repair_month']` (default: `'*'`): Specifies the month of the year the cron task should run.
+* `node['dse-simplyadrian']['cron_cluster_repair_weekday']` (default: `'auto'`): Specifies the day of week the cron task should run. 
   * This attribute does support the standard cron notation.  However, it also supports `'auto'` which automatically assigns the weekday based on the last character in the `node['cassandra']['rack']` attribute.
   * Examples:
 
@@ -167,23 +167,23 @@ These are NativeX-specific settings for configuring the timing and behavior of o
      5. 'us-west2-a' == 1, or Monday
      6. 'us-west2-c' == 3, or Wednesday
      7. Any 'last' character besides a number or a-g will result in a Chef warning and the cron task will be disabled.
-* `node['dse-nativex']['cron_cluster_repair_mobile_tables']` (default: `[ "Device", "DeviceActivityHistory", "DeviceIncentiveHistory",
+* `node['dse-simplyadrian']['cron_cluster_repair_mobile_tables']` (default: `[ "Device", "DeviceActivityHistory", "DeviceIncentiveHistory",
                                                                          "DeviceUDID", "DeviceUDID_IDX_DeviceId", "OfferConversionDayAggregate",
                                                                          "OfferConversionHourAggregate", "OfferConversionMonthAggregate",
                                                                          "OfferConversionUnaggregated", "PaymentReceipt" ]`): Array of strings specifying the list of tables in the Mobile keyspace that should be repaired.
-* `node['dse-nativex']['cron_take_snapshot_enabled']` (default: `false`): Enables or disables the cron task to take a full Snapshot of the Mobile keyspace that can be used for backups.
-* `node['dse-nativex']['cron_take_snapshot_minute']` (default: `'45'`): Specifies the minute of the hour the cron task should run.
-* `node['dse-nativex']['cron_take_snapshot_hour']` (default: `'9'`): Specifies the hour of the day the cron task should run.
-* `node['dse-nativex']['cron_take_snapshot_day']` (default: `'*'`): Specifies the day of the month the cron task should run.
-* `node['dse-nativex']['cron_take_snapshot_month']` (default: `'*'`): Specifies the month of the year the cron task should run.
-* `node['dse-nativex']['cron_take_snapshot_weekday']` (default: `'1'`): Specifies the day of week the cron task should run.
-* `node['dse-nativex']['cron_clear_snapshot_enabled']` (default: `false`): Enables or disables the cron task to clear existing snapshots for the Mobile keyspace.
-* `node['dse-nativex']['cron_clear_snapshot_minute']` (default: `'15'`): Specifies the minute of the hour the cron task should run.
-* `node['dse-nativex']['cron_clear_snapshot_hour']` (default: `'9'`): Specifies the hour of the day the cron task should run.
-* `node['dse-nativex']['cron_clear_snapshot_day']` (default: `'*'`): Specifies the day of the month the cron task should run.
-* `node['dse-nativex']['cron_clear_snapshot_month']` (default: `'*'`): Specifies the month of the year the cron task should run.
-* `node['dse-nativex']['cron_clear_snapshot_weekday']` (default: `'0,1,3-6'`): Specifies the day of week the cron task should run.
-* `node['dse-nativex']['maint_task_emails']` (default: `'root.linux@nativex.com,corey.hemminger@nativex.com,derek.bromenshenkel@nativex.com'`): Comma separated list (no spaces) of email addresses to send the output of any of the available maintenance tasks.
+* `node['dse-simplyadrian']['cron_take_snapshot_enabled']` (default: `false`): Enables or disables the cron task to take a full Snapshot of the Mobile keyspace that can be used for backups.
+* `node['dse-simplyadrian']['cron_take_snapshot_minute']` (default: `'45'`): Specifies the minute of the hour the cron task should run.
+* `node['dse-simplyadrian']['cron_take_snapshot_hour']` (default: `'9'`): Specifies the hour of the day the cron task should run.
+* `node['dse-simplyadrian']['cron_take_snapshot_day']` (default: `'*'`): Specifies the day of the month the cron task should run.
+* `node['dse-simplyadrian']['cron_take_snapshot_month']` (default: `'*'`): Specifies the month of the year the cron task should run.
+* `node['dse-simplyadrian']['cron_take_snapshot_weekday']` (default: `'1'`): Specifies the day of week the cron task should run.
+* `node['dse-simplyadrian']['cron_clear_snapshot_enabled']` (default: `false`): Enables or disables the cron task to clear existing snapshots for the Mobile keyspace.
+* `node['dse-simplyadrian']['cron_clear_snapshot_minute']` (default: `'15'`): Specifies the minute of the hour the cron task should run.
+* `node['dse-simplyadrian']['cron_clear_snapshot_hour']` (default: `'9'`): Specifies the hour of the day the cron task should run.
+* `node['dse-simplyadrian']['cron_clear_snapshot_day']` (default: `'*'`): Specifies the day of the month the cron task should run.
+* `node['dse-simplyadrian']['cron_clear_snapshot_month']` (default: `'*'`): Specifies the month of the year the cron task should run.
+* `node['dse-simplyadrian']['cron_clear_snapshot_weekday']` (default: `'0,1,3-6'`): Specifies the day of week the cron task should run.
+* `node['dse-simplyadrian']['maint_task_emails']` (default: `'root.linux@simplyadrian.com,corey.hemminger@simplyadrian.com,derek.bromenshenkel@simplyadrian.com'`): Comma separated list (no spaces) of email addresses to send the output of any of the available maintenance tasks.
 
 ## Dependencies
 
@@ -191,7 +191,7 @@ These are NativeX-specific settings for configuring the timing and behavior of o
 * "yum", "~> 3.0"
 * "limits"
 * "line"
-* "ohai-nativex" (only for EC2 deployments when using the `determine_ec2_topology` recipe.)
+* "ohai-simplyadrian" (only for EC2 deployments when using the `determine_ec2_topology` recipe.)
 
 Datastax recommends to use the Oracle JDK. You can do this by setting an attribute in your environment or run list.
 
@@ -199,5 +199,5 @@ Datastax recommends to use the Oracle JDK. You can do this by setting an attribu
 
 Some, but not all, of the components of this cookbook are based on the work of Target's DSE cookbook (https://supermarket.getchef.com/cookbooks/dse)
 
-At NativeX:
+At simplyadrian:
 	- Author: Derek Bromenshenkel (<derek.bromenshenkel@gmail.com>)

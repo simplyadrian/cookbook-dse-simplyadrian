@@ -1,12 +1,12 @@
 #
-## Cookbook Name:: dse-nativex
+## Cookbook Name:: dse-simplyadrian
 ## Recipe:: determine_ec2_topology.rb
 ##
-## Copyright 2014, NativeX
+## Copyright 2014, simplyadrian
 ##
 ## All rights reserved - Do Not Redistribute
 ##
-include_recipe "ohai-nativex::default"
+include_recipe "ohai-simplyadrian::default"
 
 ruby_block "determine_ec2_toplogy_properties" do
   block do
